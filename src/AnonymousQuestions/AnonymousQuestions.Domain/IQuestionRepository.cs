@@ -8,7 +8,7 @@ namespace AnonymousQuestions.Domain
     public interface IQuestionRepository
     {
         Question Find(long id);
-        List<Question> FindAll();
+        IEnumerable<Question> FindAll();
         void Add(Question question);
         void Update(Question question);
         void Remove(long id);

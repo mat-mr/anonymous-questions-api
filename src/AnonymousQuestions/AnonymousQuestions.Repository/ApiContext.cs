@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AnonymousQuestions.Repository
 {
-    public class AnonymousQuestionsContext : DbContext, IAnonymousQuestionsContext
+    public class ApiContext : DbContext
     {
-        public AnonymousQuestionsContext(DbContextOptions<AnonymousQuestionsContext> options) : base(options)
+        public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
         }
 
