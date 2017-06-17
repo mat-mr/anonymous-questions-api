@@ -1,9 +1,0 @@
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\bin\Debug\netcoreapp1.1\AnonymousQuestions.Api.deps.json
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\bin\Debug\netcoreapp1.1\AnonymousQuestions.Api.runtimeconfig.json
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\bin\Debug\netcoreapp1.1\AnonymousQuestions.Api.runtimeconfig.dev.json
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\bin\Debug\netcoreapp1.1\AnonymousQuestions.Api.dll
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\bin\Debug\netcoreapp1.1\AnonymousQuestions.Api.pdb
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\obj\Debug\netcoreapp1.1\AnonymousQuestions.Api.csprojResolveAssemblyReference.cache
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\obj\Debug\netcoreapp1.1\AnonymousQuestions.Api.AssemblyInfo.cs
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\obj\Debug\netcoreapp1.1\AnonymousQuestions.Api.dll
-C:\Users\cfari\Documents\git\tatucascalho\charadas\src\AnonymousQuestions\AnonymousQuestions.Api\obj\Debug\netcoreapp1.1\AnonymousQuestions.Api.pdb
