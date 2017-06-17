@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AnonymousQuestions.Repository
 {
-    public class AnonymousQuestionsContext : DbContext
+    public class AnonymousQuestionsContext : DbContext, IAnonymousQuestionsContext
     {
         public AnonymousQuestionsContext(DbContextOptions<AnonymousQuestionsContext> options) : base(options)
         {

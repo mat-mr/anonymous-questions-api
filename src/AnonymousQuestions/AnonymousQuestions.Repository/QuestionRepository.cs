@@ -1,15 +1,16 @@
 ﻿using AnonymousQuestions.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AnonymousQuestions.Repository
 {
-    public class QuestionRepository
+    public class QuestionRepository : IQuestionRepository
     {
-        private readonly AnonymousQuestionsContext _context;
+        private readonly IAnonymousQuestionsContext _context;
 
-        public QuestionRepository(AnonymousQuestionsContext context)
+        public QuestionRepository(IAnonymousQuestionsContext context)
         {
             _context = context;
         }
@@ -19,28 +20,26 @@ namespace AnonymousQuestions.Repository
             return _context.Questions.Find(id);
         }
 
-        public IEnumerable<Question> FindAll()
+        public List<Question> FindAll()
         {
-            return _context.Questions;
+            return _context.Questions.ToList();
         }
 
         public void Add(Question question)
         {
             _context.Questions.Add(question);
-            _context.SaveChanges();
         }
 
         public void Remove(long id)
         {
             var question = _context.Questions.Find(id);
             _context.Questions.Remove(question);
-            _context.SaveChanges();
         }
 
         public void Update(Question question)
         {
             _context.Questions.Update(question);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
     }
 }

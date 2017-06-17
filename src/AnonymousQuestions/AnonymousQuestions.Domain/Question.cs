@@ -10,13 +10,13 @@ namespace AnonymousQuestions.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
-        public string Title { get; private set; }
+        public string Title { get; set; }
 
-        public string Body { get; private set; }
+        public string Body { get; set; }
 
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; set; }
 
 
     }

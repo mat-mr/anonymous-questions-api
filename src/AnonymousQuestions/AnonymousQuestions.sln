@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonymousQuestions.Api", "AnonymousQuestions.Api\AnonymousQuestions.Api.csproj", "{49A13486-1B8C-4488-BDB2-E72CC76434B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousQuestions.Api", "AnonymousQuestions.Api\AnonymousQuestions.Api.csproj", "{49A13486-1B8C-4488-BDB2-E72CC76434B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - AnonymousQuestions.Api", "01 - AnonymousQuestions.Api", "{539A4815-E235-44FC-901B-32385530E464}"
 EndProject
@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - AnonymousQuestions.Dom
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - AnonymousQuestions.Infrastructure", "03 - AnonymousQuestions.Infrastructure", "{FE607B45-7559-4D16-ABEE-E4515B3EFB71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonymousQuestions.Domain", "AnonymousQuestions.Domain\AnonymousQuestions.Domain.csproj", "{AFD800EC-1D34-4A5D-93E7-DEFB27EE68E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousQuestions.Domain", "AnonymousQuestions.Domain\AnonymousQuestions.Domain.csproj", "{AFD800EC-1D34-4A5D-93E7-DEFB27EE68E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonymousQuestions.Repository", "AnonymousQuestions.Repository\AnonymousQuestions.Repository.csproj", "{CB976B22-08F1-4E84-A9E4-C2D132D76954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousQuestions.Repository", "AnonymousQuestions.Repository\AnonymousQuestions.Repository.csproj", "{CB976B22-08F1-4E84-A9E4-C2D132D76954}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - AnonymousQuestions.Test", "04 - AnonymousQuestions.Test", "{200C49C0-00F0-4C40-BC1A-51E4E8A56E92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnonymousQuestions.Test", "AnonymousQuestions.Test\AnonymousQuestions.Test.csproj", "{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{CB976B22-08F1-4E84-A9E4-C2D132D76954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB976B22-08F1-4E84-A9E4-C2D132D76954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB976B22-08F1-4E84-A9E4-C2D132D76954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +49,6 @@ Global
 		{49A13486-1B8C-4488-BDB2-E72CC76434B5} = {539A4815-E235-44FC-901B-32385530E464}
 		{AFD800EC-1D34-4A5D-93E7-DEFB27EE68E7} = {3CD9E3B6-0C93-4C71-A731-F45F382E8056}
 		{CB976B22-08F1-4E84-A9E4-C2D132D76954} = {FE607B45-7559-4D16-ABEE-E4515B3EFB71}
+		{FD2BDB70-DC2B-4B15-9EEE-1B28741B55A5} = {200C49C0-00F0-4C40-BC1A-51E4E8A56E92}
 	EndGlobalSection
 EndGlobal
