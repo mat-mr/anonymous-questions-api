@@ -1,12 +1,12 @@
 # anonymous-questions-api
 
 #### Get all questions
-  [GET] /api/questions
+  [GET] /api/questions <addr>
 
 #### Get question by id 
-  [GET] /api/questions/{id}
+  [GET] /api/questions/{id} <addr>
   ###### i.e. /api/questions/4
 
 #### Post question
-  [POST] /api/questions
-  ###### Questions JSON Structure { Title: 'title', Body: 'body' }
+  [POST] /api/questions <addr>
+  ###### Questions JSON Structure { Title: 'title', Body: 'message body' }
