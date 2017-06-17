@@ -61,7 +61,7 @@ namespace AnonymousQuestions.Api.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return ();
+            return Ok();
         }
     }
 }
