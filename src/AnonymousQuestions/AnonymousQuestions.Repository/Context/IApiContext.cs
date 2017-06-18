@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnonymousQuestions.Repository.Context
 {
-    public interface IAnonymousQuestionsContext
+    public interface IApiContext
     {
         DbSet<Question> Questions { get; }
+
+        DbSet<Reply> Replies { get; }
     }
 }

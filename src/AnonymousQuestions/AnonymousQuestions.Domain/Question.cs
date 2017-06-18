@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AnonymousQuestions.Domain
 {
@@ -12,6 +13,13 @@ namespace AnonymousQuestions.Domain
 
         public DateTime Date { get; private set; }
 
+        public virtual List<Reply> Replies { get; private set; }
+
+        public Question()
+        {
+            this.Replies = new List<Reply>();
+        }
+
         public Question(string title, string body, DateTime date)
         {
             this.Title = title;
@@ -19,10 +27,21 @@ namespace AnonymousQuestions.Domain
             this.Date = date;
         }
 
-        public Question(long id, string title, string body, DateTime date) 
+        public Question(long id, string title, string body, DateTime date)
             : this(title, body, date)
         {
             this.Id = id;
+        }
+
+        public void SetDate(DateTime date)
+        {
+            Date = date;
+        }
+
+        public void AddReply(Reply reply)
+        {
+            reply.AddReferenceQuestion(this);
+            Replies.Add(reply);
         }
     }
 }

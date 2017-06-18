@@ -4,14 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnonymousQuestions.Repository.Context
 {
-    public class AnonymousQuestionsContext : DbContext, IAnonymousQuestionsContext
+    public class ApiContext : DbContext, IApiContext
     {
         public DbSet<Question> Questions { get; set; }
 
-        public AnonymousQuestionsContext(DbContextOptions<AnonymousQuestionsContext> options) : base(options)
+        public DbSet<Reply> Replies { get; set; }
+
+        public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
         }
-.
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new QuestionConfiguration(modelBuilder).Configure();
