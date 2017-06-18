@@ -6,34 +6,28 @@ using System.Text;
 
 namespace AnonymousQuestions.Domain
 {
-    public class Question
+    public class Reply
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        public string Title { get; set; }
+        public string Author { get; set; }
 
         public string Body { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get;  set; }
 
-        public virtual List<Reply> Replies { get; private set; }
+        public Question Question { get; set; }
 
-        public Question()
+        public void AddReferenceQuestion(Question question)
         {
-            Replies = new List<Reply>();
+            Question = question;
         }
 
         public void SetDate(DateTime date)
         {
             Date = date;
-        }
-
-        public void AddReply(Reply reply)
-        {
-            reply.AddReferenceQuestion(this);
-            Replies.Add(reply);
         }
     }
 }

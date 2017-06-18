@@ -11,18 +11,27 @@ namespace AnonymousQuestions.Repository
             {
                 Title = "Como fazer uma API?",
                 Body = "Gostaria de saber como fazer uma API restful.",
-                Date = new DateTime(2017, 3, 3)
+                Date = DateTime.Now
             };
 
             var question2 = new Question
             {
                 Title = "Fortran 90",
                 Body = "Como se usa essa linguagem tão moderna?",
-                Date = new DateTime(2017, 3, 3)
+                Date = DateTime.Now.AddDays(15)
             };
 
+            var reply1 = new Reply
+            {
+                Author = "Bernardo",
+                Body = "Vou ensinar amanhã na aula.",
+                Date = DateTime.Now.AddHours(3),
+            };
+
+            context.Replies.Add(reply1);
             context.Questions.Add(question1);
             context.Questions.Add(question2);
+            context.Questions.Find(question1.Id).AddReply(reply1);
 
             context.SaveChanges();
         }

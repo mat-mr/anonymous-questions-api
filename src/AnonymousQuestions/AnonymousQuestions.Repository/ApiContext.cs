@@ -13,5 +13,15 @@ namespace AnonymousQuestions.Repository
         }
 
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Reply> Replies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Question>()
+                         .HasMany<Reply>();
+
+            modelBuilder.Entity<Reply>()
+                         .HasOne<Question>();
+        }
     }
 }

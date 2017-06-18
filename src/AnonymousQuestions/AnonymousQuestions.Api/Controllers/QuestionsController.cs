@@ -2,6 +2,8 @@ using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,13 +24,15 @@ namespace AnonymousQuestions.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var questions = await _context.Questions.ToArrayAsync();
+            //var replies = await _context.Replies.ToArrayAsync();
 
             var response = questions.Select(u => new
             {
                 id = u.Id,
                 title = u.Title,
                 body = u.Body,
-                date = u.Date
+                date = u.Date,
+                //replies = u.Replies.Where(r => r.Question.Id == u.Id) ?? new List<Reply>()
             });
 
             return Ok(response);
@@ -45,10 +49,26 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]Question question)
         {
+            question.SetDate(DateTime.Now);
             await _context.Questions.AddAsync(question);
             await _context.SaveChangesAsync();
 
             return CreatedAtRoute("GetQuestion", new { id = question.Id }, question);
+        }
+
+        [HttpPost("{idQuestion}/reply")]
+        public async Task<IActionResult> AddReply([FromBody]Reply reply, long idQuestion)
+        {
+            var question = await _context.Questions.FindAsync(idQuestion);
+            if (question == null)
+                return NotFound();
+
+            reply.SetDate(DateTime.Now);
+            question.AddReply(reply);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtRoute("GetQuestion", new { id = question.Id }, reply);
         }
 
         [HttpDelete("{id}")]
