@@ -1,3 +1,4 @@
+using AnonymousQuestions.Api.Models;
 using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository.Context;
 using Microsoft.AspNetCore.Mvc;
@@ -69,28 +70,26 @@ namespace AnonymousQuestions.Api.Controllers
 
         #region POST
         [HttpPost("{idQuestion}/reply")]
-        public async Task<IActionResult> AddReply([FromBody]Reply reply, long idQuestion)
+        public async Task<IActionResult> AddReply([FromBody]ReplyModel replyModel, long idQuestion)
         {
             var question = await _context.Questions.FindAsync(idQuestion);
             if (question == null)
                 return NotFound();
 
-            reply.SetDate(DateTime.Now);
-            question.AddReply(reply);
+            question.AddReply(replyModel.ToEntity());
 
-            await _context.SaveChangesAsync();
-
-            return CreatedAtRoute("GetQuestion", new { id = question.Id }, reply);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add([FromBody]Question question)
-        {
-            question.SetDate(DateTime.Now);
-            await _context.Questions.AddAsync(question);
             await _context.SaveChangesAsync();
 
             return CreatedAtRoute("GetQuestion", new { id = question.Id }, question);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
+        {
+            await _context.Questions.AddAsync(questionModel.ToEntity());
+            await _context.SaveChangesAsync();
+
+            return CreatedAtRoute("GetQuestion", questionModel);
         }
         #endregion POST
 
