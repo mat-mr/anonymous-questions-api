@@ -1,10 +1,7 @@
 ﻿using AnonymousQuestions.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AnonymousQuestions.Repository
+namespace AnonymousQuestions.Repository.Context
 {
     public interface IAnonymousQuestionsContext
     {

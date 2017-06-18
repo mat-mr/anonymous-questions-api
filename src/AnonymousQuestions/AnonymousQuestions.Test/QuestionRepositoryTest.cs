@@ -1,10 +1,9 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Microsoft.EntityFrameworkCore;
 using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
 
 namespace AnonymousQuestions.Test
 {
@@ -16,7 +15,7 @@ namespace AnonymousQuestions.Test
         [TestMethod]
         public void FindAll_MustFindAllQuestions()
         {
-            var question = new Question { Title = "title", Body = "body", Date = DateTime.Today };
+            var question = new Question(1, "title", "body", DateTime.Today);
             var _questionRepositoryMock = new QuestionRepository(_dbContextMock.Object);
             Mock<DbSet<Question>> _questionDBSetMock = DbSetMock.Create(question);
             _dbContextMock.Setup(m => m.Questions).Returns(_questionDBSetMock.Object);
