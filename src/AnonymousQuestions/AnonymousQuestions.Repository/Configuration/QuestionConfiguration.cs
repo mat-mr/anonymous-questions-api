@@ -26,6 +26,11 @@ namespace AnonymousQuestions.Repository.Configuration
             _modelBuilder.Entity<Question>()
                 .Property(q => q.Date)
                 .IsRequired();
+
+            _modelBuilder.Entity<Question>()
+                .HasMany(q => q.Replies)
+                .WithOne()
+                .IsRequired();
         }
     }
 }

@@ -23,7 +23,9 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var questions = await _context.Questions.ToArrayAsync();
+            var questions = await _context.Questions
+                    .Include(q => q.Replies)
+                    .ToArrayAsync();
 
             var response = questions.Select(u => new
             {

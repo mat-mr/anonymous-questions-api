@@ -1,11 +1,11 @@
 ﻿using AnonymousQuestions.Repository;
+using AnonymousQuestions.Repository.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using AnonymousQuestions.Repository.Context;
 
 namespace AnonymousQuestions.Api
 {

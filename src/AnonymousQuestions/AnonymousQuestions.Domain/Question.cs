@@ -15,12 +15,13 @@ namespace AnonymousQuestions.Domain
 
         public virtual List<Reply> Replies { get; private set; }
 
-        public Question()
+        private Question()
         {
             this.Replies = new List<Reply>();
         }
 
         public Question(string title, string body, DateTime date)
+            : this()
         {
             this.Title = title;
             this.Body = body;
@@ -40,7 +41,6 @@ namespace AnonymousQuestions.Domain
 
         public void AddReply(Reply reply)
         {
-            reply.AddReferenceQuestion(this);
             Replies.Add(reply);
         }
     }

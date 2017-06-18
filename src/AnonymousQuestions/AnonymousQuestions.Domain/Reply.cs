@@ -1,26 +1,28 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnonymousQuestions.Domain
 {
     public class Reply
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         public string Author { get; set; }
 
         public string Body { get; set; }
 
-        public DateTime Date { get;  set; }
+        public DateTime Date { get; set; }
 
-        public long QuestionId { get; set; }
-
-        public void AddReferenceQuestion(Question question)
+        public Reply(long id, string author, string body, DateTime date)
+            : this(author, body, date)
         {
-            QuestionId = question.Id;
+            this.Id = id;
+        }
+
+        public Reply(string author, string body, DateTime date)
+        {
+            this.Author = author;
+            this.Body = body;
+            this.Date = date;
         }
 
         public void SetDate(DateTime date)
