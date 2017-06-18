@@ -1,7 +1,9 @@
 ﻿using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnonymousQuestions.Repository
 {
@@ -14,33 +16,43 @@ namespace AnonymousQuestions.Repository
             _context = context;
         }
 
-        public Question Find(long id)
+        public async Task<Question> FindAsync(long id)
         {
-            return _context.Questions.Find(id);
+            return await _context.Questions.Where(q => q.Id == id)
+                                           .Include(q => q.Replies)
+                                           .FirstOrDefaultAsync();
         }
 
-        public IEnumerable<Question> FindAll()
+        public async Task<List<Question>> FindAllAsync()
         {
-            return _context.Questions.ToList();
+            return await _context.Questions.Include(q => q.Replies)
+                                           .ToListAsync();
         }
 
-        public void Add(Question question)
+        public async Task<List<Question>> FindAllUnansweredAsync()
         {
-            _context.Questions.Add(question);
-            _context.SaveChanges();
+            return await _context.Questions.Where(q => !q.Replies.Any())
+                                           .ToListAsync();
         }
 
-        public void Remove(long id)
+        public async Task<Question> AddAsync(Question question)
         {
-            var question = _context.Questions.Find(id);
+            var savedQuestion = _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return savedQuestion.Entity;
+        }
+
+        public async Task RemoveAsync(long id)
+        {
+            var question = await _context.Questions.FindAsync(id);
             _context.Questions.Remove(question);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Question question)
+        public async Task UpdateAsync(Question question)
         {
             _context.Questions.Update(question);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

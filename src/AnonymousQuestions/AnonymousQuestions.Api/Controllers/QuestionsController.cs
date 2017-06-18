@@ -1,9 +1,6 @@
 using AnonymousQuestions.Api.Models;
 using AnonymousQuestions.Domain;
-using AnonymousQuestions.Repository.Context;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,20 +10,18 @@ namespace AnonymousQuestions.Api.Controllers
     [Route("api/Questions")]
     public class QuestionsController : Controller
     {
-        private readonly ApiContext _context;
+        private readonly IQuestionRepository _questionRepository;
 
-        public QuestionsController(ApiContext context)
+        public QuestionsController(IQuestionRepository questionRepository)
         {
-            _context = context;
+            _questionRepository = questionRepository;
         }
 
         #region GET
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var questions = await _context.Questions
-                    .Include(q => q.Replies)
-                    .ToArrayAsync();
+            var questions = await _questionRepository.FindAllAsync();
 
             var response = questions.Select(u => new
             {
@@ -43,7 +38,8 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpGet("{id}", Name = "GetQuestion")]
         public async Task<IActionResult> GetOne(long id)
         {
-            var question = await _context.Questions.SingleOrDefaultAsync(q => q.Id == id);
+            var question = await _questionRepository.FindAsync(id);
+
             if (question == null)
                 return NotFound();
 
@@ -53,18 +49,8 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpGet("unanswered")]
         public async Task<IActionResult> GetUnanswered()
         {
-            var questions = await _context.Questions.ToArrayAsync();
-
-            var response = questions.Where(q => q.Replies.Count == 0).Select(u => new
-            {
-                id = u.Id,
-                title = u.Title,
-                body = u.Body,
-                date = u.Date,
-                replies = u.Replies
-            });
-
-            return Ok(response);
+            var questions = await _questionRepository.FindAllUnansweredAsync();
+            return Ok(questions);
         }
         #endregion GET
 
@@ -72,13 +58,14 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost("{idQuestion}/reply")]
         public async Task<IActionResult> AddReply([FromBody]ReplyModel replyModel, long idQuestion)
         {
-            var question = await _context.Questions.FindAsync(idQuestion);
+            var question = await _questionRepository.FindAsync(idQuestion);
             if (question == null)
                 return NotFound();
 
-            question.AddReply(replyModel.ToEntity());
+            var reply = replyModel.ToEntity();
+            question.AddReply(reply);
 
-            await _context.SaveChangesAsync();
+            await _questionRepository.UpdateAsync(question);
 
             return CreatedAtRoute("GetQuestion", new { id = question.Id }, question);
         }
@@ -86,22 +73,22 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
         {
-            await _context.Questions.AddAsync(questionModel.ToEntity());
-            await _context.SaveChangesAsync();
+            var question = questionModel.ToEntity();
+            var savedQuestion = await _questionRepository.AddAsync(question);
 
-            return CreatedAtRoute("GetQuestion", questionModel);
+            return CreatedAtRoute("GetQuestion", new { id = savedQuestion.Id }, savedQuestion);
         }
         #endregion POST
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(long id)
         {
-            var question = await _context.Questions.SingleOrDefaultAsync(q => q.Id == id);
+            var question = await _questionRepository.FindAsync(id);
+
             if (question == null)
                 return NotFound();
 
-            _context.Questions.Remove(question);
-            await _context.SaveChangesAsync();
+            await _questionRepository.RemoveAsync(id);
 
             return Ok();
         }

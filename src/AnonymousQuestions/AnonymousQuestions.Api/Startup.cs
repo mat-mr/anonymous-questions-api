@@ -1,4 +1,5 @@
-﻿using AnonymousQuestions.Repository;
+﻿using AnonymousQuestions.Domain;
+using AnonymousQuestions.Repository;
 using AnonymousQuestions.Repository.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,19 @@ namespace AnonymousQuestions.Api
             // Add framework services.
             services.AddMvc();
 
-            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
+            // Configure DbContext
+            bool useInMemoryDatabase = Configuration.GetValue<bool>("InMemoryDatabase", true);
+
+            if (useInMemoryDatabase)
+            {
+                services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
+            }
+            else
+            {
+                // TO-DO: Adicionar lógica para utilizar base de verdade
+            }
+
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +52,13 @@ namespace AnonymousQuestions.Api
             loggerFactory.AddDebug();
 
             var context = app.ApplicationServices.GetService<ApiContext>();
-            TestData.CreateData(context);
+
+            bool useInMemoryDatabase = Configuration.GetValue<bool>("InMemoryDatabase", true);
+
+            if (useInMemoryDatabase)
+            {
+                TestData.CreateData(context);
+            }
 
             app.UseMvc();
         }

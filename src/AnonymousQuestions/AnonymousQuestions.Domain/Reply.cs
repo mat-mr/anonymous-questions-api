@@ -16,22 +16,17 @@ namespace AnonymousQuestions.Domain
         {
         }
 
-        public Reply(long id, string author, string body, DateTime date)
-            : this(author, body, date)
-        {
-            this.Id = id;
-        }
-
-        public Reply(string author, string body, DateTime date)
+        public Reply(string author, string body)
         {
             this.Author = author;
             this.Body = body;
-            this.Date = date;
+            this.Date = DateTime.Now;
         }
 
-        public void SetDate(DateTime date)
+        public Reply(long id, string author, string body)
+            : this(author, body)
         {
-            Date = date;
+            this.Id = id;
         }
     }
 }

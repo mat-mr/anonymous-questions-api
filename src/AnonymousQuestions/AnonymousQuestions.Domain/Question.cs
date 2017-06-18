@@ -20,23 +20,18 @@ namespace AnonymousQuestions.Domain
             this.Replies = new List<Reply>();
         }
 
-        public Question(string title, string body, DateTime date)
+        public Question(string title, string body)
             : this()
         {
             this.Title = title;
             this.Body = body;
-            this.Date = date;
+            this.Date = DateTime.Now;
         }
 
-        public Question(long id, string title, string body, DateTime date)
-            : this(title, body, date)
+        public Question(long id, string title, string body)
+            : this(title, body)
         {
             this.Id = id;
-        }
-
-        public void SetDate(DateTime date)
-        {
-            Date = date;
         }
 
         public void AddReply(Reply reply)
