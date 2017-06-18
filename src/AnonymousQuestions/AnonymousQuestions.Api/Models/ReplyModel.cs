@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnonymousQuestions.Domain;
+using Newtonsoft.Json;
 
 namespace AnonymousQuestions.Api.Models
 {
@@ -12,6 +13,11 @@ namespace AnonymousQuestions.Api.Models
         public string Author { get; set; }
         public string Body { get; set; }
         public DateTime Date { get; set; }
+
+        [JsonConstructor]
+        public ReplyModel()
+        {
+        }
 
         public ReplyModel(Reply reply)
         {

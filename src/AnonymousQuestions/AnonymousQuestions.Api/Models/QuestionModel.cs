@@ -1,4 +1,5 @@
 ﻿using AnonymousQuestions.Domain;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace AnonymousQuestions.Api.Models
         public string Body { get; set; }
         public DateTime Date { get; set; }
         public List<ReplyModel> Replies { get; set; }
+
+        [JsonConstructor]
+        public QuestionModel()
+        {
+        }
 
         public QuestionModel(Question question)
         {
