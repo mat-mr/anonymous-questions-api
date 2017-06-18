@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AnonymousQuestions.Api\AnonymousQuestions.Api.csproj" />
     <ProjectReference Include="..\AnonymousQuestions.Domain\AnonymousQuestions.Domain.csproj" />
     <ProjectReference Include="..\AnonymousQuestions.Repository\AnonymousQuestions.Repository.csproj" />
   </ItemGroup>
