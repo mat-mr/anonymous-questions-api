@@ -26,16 +26,9 @@ namespace AnonymousQuestions.Api.Controllers
         {
             var questions = await _context.Questions
                     .Include(q => q.Replies)
-                    .ToArrayAsync();
+                    .ToListAsync();
 
-            var response = questions.Select(u => new
-            {
-                id = u.Id,
-                title = u.Title,
-                body = u.Body,
-                date = u.Date,
-                replies = u.Replies
-            });
+            var response = questions.Select(q => new QuestionModel(q));
 
             return Ok(response);
         }
@@ -47,28 +40,31 @@ namespace AnonymousQuestions.Api.Controllers
             if (question == null)
                 return NotFound();
 
-            return Ok(question);
+            return Ok(new QuestionModel(question));
         }
 
         [HttpGet("unanswered")]
         public async Task<IActionResult> GetUnanswered()
         {
-            var questions = await _context.Questions.ToArrayAsync();
+            var questions = await _context.Questions.ToListAsync();
 
-            var response = questions.Where(q => q.Replies.Count == 0).Select(u => new
-            {
-                id = u.Id,
-                title = u.Title,
-                body = u.Body,
-                date = u.Date,
-                replies = u.Replies
-            });
+            var response = questions.Where(q => q.Replies.Count == 0)
+                .Select(q => new QuestionModel(q));
 
             return Ok(response);
         }
         #endregion GET
 
         #region POST
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
+        {
+            var question = await _context.Questions.AddAsync(questionModel.ToEntity());
+            await _context.SaveChangesAsync();
+
+            return CreatedAtRoute("GetQuestion", new { id = question.Entity.Id }, question.Entity);
+        }
+
         [HttpPost("{idQuestion}/reply")]
         public async Task<IActionResult> AddReply([FromBody]ReplyModel replyModel, long idQuestion)
         {
@@ -81,15 +77,6 @@ namespace AnonymousQuestions.Api.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtRoute("GetQuestion", new { id = question.Id }, question);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
-        {
-            var question = await _context.Questions.AddAsync(questionModel.ToEntity());
-            await _context.SaveChangesAsync();
-
-            return CreatedAtRoute("GetQuestion", new { id = question.Entity.Id }, question.Entity);
         }
         #endregion POST
 
