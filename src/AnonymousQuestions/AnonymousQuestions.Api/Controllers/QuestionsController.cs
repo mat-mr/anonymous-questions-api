@@ -86,10 +86,10 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
         {
-            await _context.Questions.AddAsync(questionModel.ToEntity());
+            var question = await _context.Questions.AddAsync(questionModel.ToEntity());
             await _context.SaveChangesAsync();
 
-            return CreatedAtRoute("GetQuestion", questionModel);
+            return CreatedAtRoute("GetQuestion", new { id = question.Entity.Id }, question.Entity);
         }
         #endregion POST
 
