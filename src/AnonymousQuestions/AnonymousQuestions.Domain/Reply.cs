@@ -4,13 +4,17 @@ namespace AnonymousQuestions.Domain
 {
     public class Reply
     {
-        public long Id { get; set; }
+        public long Id { get; private set; }
 
-        public string Author { get; set; }
+        public string Author { get; private set; }
 
-        public string Body { get; set; }
+        public string Body { get; private set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
+
+        private Reply()
+        {
+        }
 
         public Reply(long id, string author, string body, DateTime date)
             : this(author, body, date)
