@@ -18,11 +18,11 @@ namespace AnonymousQuestions.Domain
 
         public DateTime Date { get;  set; }
 
-        public Question Question { get; set; }
+        public long QuestionId { get; set; }
 
         public void AddReferenceQuestion(Question question)
         {
-            Question = question;
+            QuestionId = question.Id;
         }
 
         public void SetDate(DateTime date)

@@ -28,10 +28,18 @@ namespace AnonymousQuestions.Repository
                 Date = DateTime.Now.AddHours(3),
             };
 
+            var reply2 = new Reply
+            {
+                Author = "Nunes",
+                Body = "et cetera e tal.",
+                Date = DateTime.Now.AddHours(4),
+            };
+
             context.Replies.Add(reply1);
             context.Questions.Add(question1);
             context.Questions.Add(question2);
             context.Questions.Find(question1.Id).AddReply(reply1);
+            context.Questions.Find(question1.Id).AddReply(reply2);
 
             context.SaveChanges();
         }

@@ -19,9 +19,6 @@ namespace AnonymousQuestions.Repository
         {
             modelBuilder.Entity<Question>()
                          .HasMany<Reply>();
-
-            modelBuilder.Entity<Reply>()
-                         .HasOne<Question>();
         }
     }
 }

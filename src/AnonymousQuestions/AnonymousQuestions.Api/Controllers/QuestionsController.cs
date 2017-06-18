@@ -24,7 +24,7 @@ namespace AnonymousQuestions.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var questions = await _context.Questions.ToArrayAsync();
-            //var replies = await _context.Replies.ToArrayAsync();
+            var replies = await _context.Replies.ToArrayAsync();
 
             var response = questions.Select(u => new
             {
@@ -32,7 +32,7 @@ namespace AnonymousQuestions.Api.Controllers
                 title = u.Title,
                 body = u.Body,
                 date = u.Date,
-                //replies = u.Replies.Where(r => r.Question.Id == u.Id) ?? new List<Reply>()
+                replies = u.Replies
             });
 
             return Ok(response);
