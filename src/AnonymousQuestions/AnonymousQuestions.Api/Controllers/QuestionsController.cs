@@ -23,14 +23,7 @@ namespace AnonymousQuestions.Api.Controllers
         {
             var questions = await _questionRepository.FindAllAsync();
 
-            var response = questions.Select(u => new
-            {
-                id = u.Id,
-                title = u.Title,
-                body = u.Body,
-                date = u.Date,
-                replies = u.Replies
-            });
+            var response = questions.Select(q => new QuestionModel(q));
 
             return Ok(response);
         }
@@ -43,7 +36,7 @@ namespace AnonymousQuestions.Api.Controllers
             if (question == null)
                 return NotFound();
 
-            return Ok(question);
+            return Ok(new QuestionModel(question));
         }
 
         [HttpGet("unanswered")]
@@ -55,6 +48,7 @@ namespace AnonymousQuestions.Api.Controllers
         #endregion GET
 
         #region POST
+
         [HttpPost("{idQuestion}/reply")]
         public async Task<IActionResult> AddReply([FromBody]ReplyModel replyModel, long idQuestion)
         {
