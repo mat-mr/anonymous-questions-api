@@ -34,7 +34,6 @@ namespace AnonymousQuestions.Test
                                                                     .Build();
             var questionController = new QuestionsControllerBuilder().WithRepository(questionRepository)
                                                                      .Build();
-
             var result = await questionController.GetOne(1);
             var okResult = result as OkObjectResult;
             var question = okResult.Value as QuestionModel;
@@ -42,6 +41,21 @@ namespace AnonymousQuestions.Test
             Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
         }
 
+        [TestMethod]
+        public async Task GetOneQuestions_ShouldReturnUnansweredAsync()
+        {
+            var questionRepository = new QuestionRepositoryBuilder().WithData()
+                                                                    .Build();
+            var questionController = new QuestionsControllerBuilder().WithRepository(questionRepository)
+                                                                     .Build();
+            var result = await questionController.GetUnanswered();
+            var okResult = result as OkObjectResult;
+            var questions = okResult.Value as List<QuestionModel>;
 
+            Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
+            Assert.AreEqual(1, questions.Count);
+            Assert.IsFalse(questions.TrueForAll(q => q.Replies.Count > 0));
+        }
+        
     }
 }

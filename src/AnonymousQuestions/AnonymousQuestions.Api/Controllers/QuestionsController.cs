@@ -44,7 +44,9 @@ namespace AnonymousQuestions.Api.Controllers
         public async Task<IActionResult> GetUnanswered()
         {
             var questions = await _questionRepository.FindAllUnansweredAsync();
-            return Ok(questions);
+            var response = questions.Select(q => new QuestionModel(q))
+                                    .ToList();
+            return Ok(response);
         }
         #endregion GET
 
