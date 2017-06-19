@@ -10,7 +10,7 @@ namespace AnonymousQuestions.Repository.Context
 
         public DbSet<Reply> Replies { get; set; }
 
-        public ApiContext(DbContextOptions<ApiContext> options) : base(options)
+        public ApiContext(DbContextOptions options) : base(options)
         {
         }
 

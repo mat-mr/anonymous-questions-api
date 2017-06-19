@@ -23,7 +23,8 @@ namespace AnonymousQuestions.Api.Controllers
         {
             var questions = await _questionRepository.FindAllAsync();
 
-            var response = questions.Select(q => new QuestionModel(q));
+            var response = questions.Select(q => new QuestionModel(q))
+                                    .ToList();
 
             return Ok(response);
         }

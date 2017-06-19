@@ -1,37 +1,60 @@
 using AnonymousQuestions.Api.Controllers;
 using AnonymousQuestions.Api.Models;
-using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository;
+using AnonymousQuestions.Repository.Context;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnonymousQuestions.Test
 {
     [TestClass]
-    public class QuestionRepositoryTest
+    public class QuestionControllerTest
     {
+        private const string DatabaseForGetAllQuestions = "GetAllQuestions";
+        private const string DatabaseForGetOneQuestion = "GetOneQuestion";
+
         [TestMethod]
-        public async Task GetAllProducts_ShouldReturnAllProductsAsync()
+        public async Task GetAllQuestions_ShouldReturnAllQuestionsAsync()
         {
-            var mockRepo = new Mock<IQuestionRepository>();
-            mockRepo.Setup(repo => repo.FindAllAsync()).Returns(Task.FromResult(GetTestSessions()));
-            var controller = new QuestionsController(mockRepo.Object);
+            var options = new DbContextOptionsBuilder().UseInMemoryDatabase(databaseName: DatabaseForGetAllQuestions)
+                                                       .Options;
+            var apiContext = new ApiContext(options);
+            TestData.CreateData(apiContext);
+            var questionRepository = new QuestionRepository(apiContext);
+            var questionController = new QuestionsController(questionRepository);
 
-            var result = await controller.Get() as List<QuestionModel>;
-            Assert.AreEqual(2, result.Count);
+            var result = await questionController.Get();
+            var okResult = result as OkObjectResult;
+            var questions = okResult.Value as List<QuestionModel>;
+
+            Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
+            Assert.AreEqual(2, questions.Count);
+
+            apiContext.Database.EnsureDeleted();
         }
 
-        private List<Question> GetTestSessions()
+        [TestMethod]
+        public async Task GetOneQuestions_ShouldReturnOneQuestionAsync()
         {
-            return new List<Question>()
-            {
-                new Question("Como fazer uma API?", "Gostaria de saber como fazer uma API restful."),
-                new Question("Fortran 90", "Como se usa essa linguagem tão moderna?")
-            };
+            var options = new DbContextOptionsBuilder().UseInMemoryDatabase(databaseName: DatabaseForGetOneQuestion)
+                                                       .Options;
+
+            var apiContext = new ApiContext(options);
+            TestData.CreateData(apiContext);
+            var questionRepository = new QuestionRepository(apiContext);
+            var questionController = new QuestionsController(questionRepository);
+
+            var result = await questionController.GetOne(1);
+            var okResult = result as OkObjectResult;
+            var question = okResult.Value as QuestionModel;
+
+            Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
+
+            apiContext.Database.EnsureDeleted();
         }
+
     }
 }

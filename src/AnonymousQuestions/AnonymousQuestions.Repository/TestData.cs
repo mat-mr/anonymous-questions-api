@@ -1,5 +1,6 @@
 ﻿using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository.Context;
+using System.Linq;
 
 namespace AnonymousQuestions.Repository
 {
@@ -21,6 +22,9 @@ namespace AnonymousQuestions.Repository
             context.Questions.Find(question1.Id).AddReply(reply2);
 
             context.SaveChanges();
+
+
+            var questions = context.Questions.ToList();
         }
     }
 }
