@@ -1,4 +1,4 @@
-﻿namespace AnonymousQuestions.Test
+﻿namespace AnonymousQuestions.Test.Builders
 {
     public interface IBuilder<T>
     {
