@@ -55,7 +55,11 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost("{idQuestion}/reply")]
         public async Task<IActionResult> AddReply([FromBody]ReplyModel replyModel, long idQuestion)
         {
+            if (!ModelState.IsValid || replyModel == null)
+                return BadRequest();
+
             var question = await _questionRepository.FindAsync(idQuestion);
+
             if (question == null)
                 return NotFound();
 
@@ -70,6 +74,9 @@ namespace AnonymousQuestions.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]QuestionModel questionModel)
         {
+            if (!ModelState.IsValid || questionModel == null)
+                return BadRequest();
+
             var question = questionModel.ToEntity();
             var savedQuestion = await _questionRepository.AddAsync(question);
 
