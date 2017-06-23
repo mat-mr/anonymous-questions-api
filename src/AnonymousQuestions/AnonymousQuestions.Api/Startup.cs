@@ -57,7 +57,7 @@ namespace AnonymousQuestions.Api
 
             if (useInMemoryDatabase)
             {
-                TestData.CreateData(context);
+                TestDataCreator.Create(context);
             }
 
             app.UseMvc();
