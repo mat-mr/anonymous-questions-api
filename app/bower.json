@@ -1,0 +1,12 @@
+{
+  "name": "anonymous-questions",
+  "description": "",
+  "license": "ISC",
+  "homepage": "https://github.com/mat-mr/anonymous-questions-api",
+  "private": true,
+  "dependencies": {
+    "angular-ui-router": "^1.0.4",
+    "angular": "^1.6.4",
+    "bulma": "^0.4.2"
+  }
+}
