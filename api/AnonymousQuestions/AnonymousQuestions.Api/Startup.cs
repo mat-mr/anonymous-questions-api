@@ -1,6 +1,7 @@
 ﻿using AnonymousQuestions.Domain;
 using AnonymousQuestions.Repository;
 using AnonymousQuestions.Repository.Context;
+using AnonymousQuestions.Repository.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

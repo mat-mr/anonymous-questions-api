@@ -1,7 +1,6 @@
 ﻿using AnonymousQuestions.Repository.Context;
-using AnonymousQuestions.Repository.Data;
 
-namespace AnonymousQuestions.Repository
+namespace AnonymousQuestions.Repository.Data
 {
     public static class TestDataCreator
     {
